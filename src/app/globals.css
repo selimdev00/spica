@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+/* visible keyboard focus across all interactive elements */
+:where(a, button, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid theme("colors.kiln.clay");
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: theme("colors.cream");
+  color: theme("colors.ink");
+  font-family: theme("fontFamily.body");
+}
+
+@layer components {
+  .field-line {
+    @apply w-full bg-transparent border-b-2 border-line/70 px-1 py-1 text-sm
+           outline-none placeholder:text-ink/40 focus:border-line transition-colors;
+  }
+  /* inline label with a dotted-underline value field, as on the macet */
+  .uline {
+    @apply min-w-0 flex-1 bg-transparent border-b border-line px-1 text-sm
+           outline-none placeholder:text-ink/30 focus:border-kiln-clay transition-colors;
+  }
+  .btn-pill {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-line
+           bg-cream px-4 py-1.5 text-xs font-semibold uppercase tracking-wide
+           transition-transform active:translate-y-px hover:bg-parchment;
+  }
+  .panel {
+    @apply border-2 border-line bg-cream/60 shadow-card-sm;
+  }
+  /* boxed value flanked by literal square brackets */
+  .bracket {
+    @apply inline-flex items-center gap-1 font-semibold text-ink;
+  }
+  .bracket > .box {
+    @apply inline-flex min-w-[48px] items-center justify-center rounded-[3px]
+           border border-line bg-cream px-1.5 py-0.5 tabular-nums;
+  }
+  .bracket::before {
+    content: "[";
+    @apply text-base font-bold;
+  }
+  .bracket::after {
+    content: "]";
+    @apply text-base font-bold;
+  }
+}
+
+/* hide native number spinners so quantities are not clipped */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* thin scrollbar inside the visualiser palette */
+.thin-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: theme("colors.ink");
+  border-radius: 3px;
+}
