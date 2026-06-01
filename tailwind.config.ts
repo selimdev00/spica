@@ -37,9 +37,14 @@ const config: Config = {
           "0%": { transform: "scale(0.85)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         pop: "pop 160ms ease-out",
+        marquee: "marquee 30s linear infinite",
       },
     },
   },
