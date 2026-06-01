@@ -9,8 +9,9 @@ const LINKS: { label: string; href: string }[] = [
   { label: "Contact Us", href: "/contact" },
 ];
 
-// repeated tile sequence for the seamless marquee (duplicated -> -50% loop)
-const STRIP: TileId[] = [...TILES, ...TILES, ...TILES, ...TILES].map((t) => t.id);
+// One sequence wide enough to exceed the widest viewport (>1980px at ~30px/tile);
+// rendered twice and animated -50% so the loop is seamless and never runs dry.
+const SEQ: TileId[] = Array.from({ length: 24 }, () => TILES.map((t) => t.id)).flat();
 
 export default function Footer() {
   return (
@@ -18,7 +19,7 @@ export default function Footer() {
       {/* fancy: slow seamless marquee of tile patterns */}
       <div className="overflow-hidden border-b-2 border-line/30" aria-hidden="true">
         <div className="flex w-max animate-marquee gap-[3px] py-2 motion-reduce:animate-none">
-          {[...STRIP, ...STRIP].map((t, i) => (
+          {[...SEQ, ...SEQ].map((t, i) => (
             <span key={i} className="h-7 w-7 shrink-0 overflow-hidden rounded-[2px] border border-line/40">
               <TileSwatch tile={t} className="h-full w-full" />
             </span>
